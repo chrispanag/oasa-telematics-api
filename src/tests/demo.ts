@@ -1,11 +1,9 @@
-import fetch from 'node-fetch';
+import { APIRequests } from "../oasa-requests";
+import { APIHelpers } from '../queries';
 
-import requests from "../oasa-requests";
-import queries from '../queries';
+const api = new APIRequests();
 
-const api = requests();
-
-const b = queries();
+const b = new APIHelpers();
 
 (async () => {
     const line = await b.findLine('790');

@@ -1,4 +1,4 @@
-import requests, { RequestFunction } from './oasa-requests';
+import { APIRequests, RequestFunction } from './oasa-requests';
 import { flatten, groupBy, isEqual, map, uniqWith } from 'lodash';
 import { IDirection, ILine, ILineWithMLInfo, IStop } from './interfaces';
 
@@ -11,24 +11,38 @@ const fuseOptions: Fuse.IFuseOptions<IStop> = {
     threshold: 0.7
 };
 
-export default function queries(requestFunction?: RequestFunction) {
+export class APIHelpers {
+    private api: APIRequests;
 
-    const api = requests(requestFunction);
+    constructor(requestFunction?: RequestFunction) {
+        this.api = new APIRequests(requestFunction);
+    }
 
-    async function findLine(lineID: string, withML?: false): Promise<ILine | undefined>;
-    async function findLine(lineID: string, withML: true): Promise<ILineWithMLInfo | undefined>;
-    async function findLine(lineID: string, withML: boolean = false) {
+    /**
+     * Searches a specific line according to its name (LineID)
+     * @param lineID - The name of the line (eg: '140', 'A3' etc.)
+     * @param withML - Change the fetch function to {@link webGetLinesWithMLInfo} to fetch lines with Masterline data.
+     * @param params - Params to pass at the underlying requestFunction
+     */
+    async findLine(lineID: string, withML?: false, ...params: any[]): Promise<ILine | undefined>;
+    async findLine(lineID: string, withML: true, ...params: any[]): Promise<ILineWithMLInfo | undefined>;
+    async findLine(lineID: string, withML: boolean = false, ...params: any[]) {
         if (withML) {
-            const lines = await api.webGetLinesWithMLInfo();
+            const lines = await this.api.webGetLinesWithMLInfo(...params);
             return lines.find(l => l.line_id === lineID);
         }
 
-        const lines = await api.webGetLines();
+        const lines = await this.api.webGetLines(...params);
         return lines.find(l => l.LineID === lineID);
     }
-
-    async function getLinesOfStop(stopCode: string) {
-        const routes = await api.webRoutesForStop(stopCode);
+    
+    /**
+     * Fetches the different lines passing through a stop
+     * @param stopCode 
+     * @param params - Params to pass at the underlying requestFunction 
+     */
+    async getLinesOfStop(stopCode: string, ...params: any[]) {
+        const routes = await this.api.webRoutesForStop(stopCode, ...params);
         const lines = groupBy(routes, 'LineCode');
 
         return map(lines, l => {
@@ -42,8 +56,13 @@ export default function queries(requestFunction?: RequestFunction) {
         });
     }
 
-    async function getDirectionsOfLine(lineCode: string) {
-        const routes = await api.webGetRoutes(lineCode);
+    /**
+     * Fetches the directions of a line ({@link IDirection})
+     * @param lineCode 
+     * @param params - Params to pass at the underlying requestFunction 
+     */
+    async getDirectionsOfLine(lineCode: string, ...params: any[]) {
+        const routes = await this.api.webGetRoutes(lineCode, ...params);
         if (!routes) {
             throw new Error(`DataError: Line: with LineCode ${lineCode}, has no routes!`);
         }
@@ -69,8 +88,14 @@ export default function queries(requestFunction?: RequestFunction) {
         return cycleProcessing(dirs);
     }
 
-    async function findStop(stopName: string, routeCodes: string[]) {
-        const promises = routeCodes.map(r => api.webGetStops(r));
+    /**
+     * Performs a fuzzy search to find the closest stop names (StopDescr) on multiple routes.
+     * @param stopName - The name of the stop
+     * @param routeCodes - The various routeCodes to search for a specific stop
+     * @param params - Params to pass at the underlying requestFunction 
+     */
+    async findStop(stopName: string, routeCodes: string[], ...params: any[]) {
+        const promises = routeCodes.map(r => this.api.webGetStops(r, ...params));
         const stops = (await Promise.all(promises)).filter(s => s);
 
         const foundStops = stops.map(routeStops => {
@@ -118,13 +143,6 @@ export default function queries(requestFunction?: RequestFunction) {
         });
 
         return uniqWith(filteredStops, isEqual);
-    }
-
-    return {
-        findLine,
-        getLinesOfStop,
-        getDirectionsOfLine,
-        findStop
     }
 }
 
