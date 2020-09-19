@@ -57,7 +57,7 @@ Also, feel free to open an issue if you want to ask or suggest anything :)
 
 ### Can I use my own request method? 
 
-Yes. The constructors APIRequests and APIHelpers can get a request function as an argument. 
+Yes. The constructors `APIRequests` and `APIHelpers` can get a request function as an argument. 
 
 The request function will need to have the form: 
 
