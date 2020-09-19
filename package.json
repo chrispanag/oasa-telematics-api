@@ -1,13 +1,29 @@
 {
-    "name": "oasa-api",
-    "version": "1.0.0",
+    "name": "oasa-telematics-api",
+    "version": "0.1.0",
     "main": "build/index.js",
     "types": "build/index.d.ts",
+    "description": "The Athens' bus telematics API, complete with types and helper methods",
     "author": "Christos Panagiotakopoulos <chrispanag@gmail.com>",
+    "repository": "git://github.com/chrispanag/oasa-telematics-api.git",
+    "publishConfig": {
+        "access": "public"
+    },
     "license": "MIT",
+    "keywords": [
+        "athens",
+        "greece",
+        "bus",
+        "oasa",
+        "telematics",
+        "oasa-telematics",
+        "buses",
+        "greek",
+        "public-transport"
+    ],
     "scripts": {
         "build": "npx tsc",
-        "test": "node ./build/tests/index.js",
+        "test": "node ./build/tests/demo.js",
         "gen:docs": "npx typedoc --mode library --out docs --exclude src/tests* src/index.ts"
     },
     "devDependencies": {
@@ -22,5 +38,13 @@
         "fuse.js": "^6.4.1",
         "lodash": "^4.17.20",
         "node-fetch": "^2.6.1"
-    }
+    },
+    "engines": {
+        "node": ">=8.9.0"
+    },
+    "files": [
+        "LICENSE",
+        "README.md",
+        "build/**/*"
+    ]
 }
