@@ -114,6 +114,22 @@
 				<p>You can explore more by visiting the (mostly auto-generated) docs here: </p>
 				<p><a href="https://chrispanag.github.io/oasa-telematics-api/">https://chrispanag.github.io/oasa-telematics-api/</a></p>
 				<p>Also, feel free to open an issue if you want to ask or suggest anything :)</p>
+				<a href="#can-i-use-my-own-request-method" id="can-i-use-my-own-request-method" style="color: inherit; text-decoration: none;">
+					<h3>Can I use my own request method?</h3>
+				</a>
+				<p>Yes. The constructors APIRequests and APIHelpers can get a request function as an argument. </p>
+				<p>The request function will need to have the form: </p>
+				<pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> RequestFunction = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">url: <span class="hljs-built_in">string</span>, query: <span class="hljs-built_in">string</span>, ...params: <span class="hljs-built_in">any</span>[]</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;T&gt;;</code></pre>
+				<p>You can see a reference request function <a href="src/requestFunction.ts">here</a>. </p>
+				<a href="#why-would-i-want-to-use-my-own-request-method" id="why-would-i-want-to-use-my-own-request-method" style="color: inherit; text-decoration: none;">
+					<h3>Why would I want to use my own request method?</h3>
+				</a>
+				<p>Caching. </p>
+				<p>Also, see below...</p>
+				<a href="#can-i-use-this-for-frontend-development" id="can-i-use-this-for-frontend-development" style="color: inherit; text-decoration: none;">
+					<h3>Can I use this for frontend development?</h3>
+				</a>
+				<p>Yes. But you&#39;ll need to create a custom request function using the browser <code>fetch</code> method instead of the default one installed (<code>node-fetch</code>). You can see the above question for more details.</p>
 				<a href="#next-steps" id="next-steps" style="color: inherit; text-decoration: none;">
 					<h2>Next Steps</h2>
 				</a>
