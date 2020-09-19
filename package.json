@@ -24,7 +24,7 @@
     "scripts": {
         "build": "npx tsc",
         "test": "node ./build/tests/demo.js",
-        "gen:docs": "npx typedoc --mode library --out docs --exclude src/tests* src/index.ts",
+        "gen:docs": "npx typedoc --mode library --out docs --exclude src/tests* --name \"OASA Telematics API\" --includeVersion src/index.ts",
         "prepublish": "yarn run build"
     },
     "devDependencies": {
