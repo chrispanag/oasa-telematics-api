@@ -191,7 +191,7 @@ function cycleProcessing(directions: IDirection[]) {
                     to: dir.from,
                     from: dir.to,
                     RouteCodes: dir.RouteCodes,
-                    direction: directions
+                    direction: '2'
                 }
             ]
         }
