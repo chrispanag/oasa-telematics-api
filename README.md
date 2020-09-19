@@ -55,6 +55,28 @@ https://chrispanag.github.io/oasa-telematics-api/
 
 Also, feel free to open an issue if you want to ask or suggest anything :)
 
+### Can I use my own request method? 
+
+Yes. The constructors APIRequests and APIHelpers can get a request function as an argument. 
+
+The request function will need to have the form: 
+
+```typescript
+export type RequestFunction = <T>(url: string, query: string, ...params: any[]) => Promise<T>;
+```
+
+You can see a reference request function [here](src/requestFunction.ts). 
+
+### Why would I want to use my own request method?
+
+Caching. 
+
+Also, see below...
+
+### Can I use this for frontend development?
+
+Yes. But you'll need to create a custom request function using the browser `fetch` method instead of the default one installed (`node-fetch`). You can see the above question for more details.
+
 ## Next Steps
 
 * Add tests
