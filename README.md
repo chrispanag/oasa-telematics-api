@@ -48,4 +48,14 @@ const b = new APIHelpers();
     }
 })();
 ```
-## It works 
+
+You can explore more by visiting the (mostly auto-generated) docs here: 
+
+https://chrispanag.github.io/oasa-telematics-api/
+
+Also, feel free to open an issue if you want to ask or suggest anything :)
+
+## Next Steps
+
+* Add tests
+* Add some more helper methods for schedule management
