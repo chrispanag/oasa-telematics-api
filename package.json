@@ -5,6 +5,7 @@
     "types": "build/index.d.ts",
     "description": "The Athens' bus telematics API, complete with types and helper methods",
     "author": "Christos Panagiotakopoulos <chrispanag@gmail.com>",
+    "homepage": "https://chrispanag.github.io/oasa-telematics-api/",
     "repository": "git://github.com/chrispanag/oasa-telematics-api.git",
     "publishConfig": {
         "access": "public"
