@@ -1,5 +1,7 @@
 # OASA Telematics API
 
+[![npm](https://img.shields.io/npm/v/oasa-telematics-api)](https://www.npmjs.com/package/oasa-telematics-api) [![npm](https://img.shields.io/npm/dw/oasa-telematics-api)](https://www.npmjs.com/package/oasa-telematics-api) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/chrispanag/oasa-telematics-api/Node%20CI)
+
 The (unofficial) Telematics API of Athens' public buses, complete with types and helper methods 🚌🚌🚌
 
 This is the package that powers the popular greek messenger bot "[Πότε έρχεται το λεωφορείο μου 🚌](https://m.me/athensbus)". 
