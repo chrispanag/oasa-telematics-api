@@ -1,6 +1,6 @@
 import { APIRequests, RequestFunction } from './oasa-requests';
 import { flatten, groupBy, isEqual, map, uniqWith } from 'lodash';
-import { IDirection, ILine, ILineWithMLInfo, IStop } from './interfaces';
+import { IDirection, ILine, ILineOfStop, ILineWithMLInfo, IStop } from './interfaces';
 
 import Fuse from 'fuse.js';
 
@@ -35,25 +35,45 @@ export class APIHelpers {
         const lines = await this.api.webGetLines(...params);
         return lines.find(l => l.LineID === lineID);
     }
-    
+
     /**
      * Fetches the different lines passing through a stop
      * @param stopCode 
      * @param params - Params to pass at the underlying requestFunction 
      */
-    async getLinesOfStop(stopCode: string, ...params: any[]) {
+    async getLinesOfStop(stopCode: string, ...params: any[]): Promise<ILineOfStop[] | null> {
         const routes = await this.api.webRoutesForStop(stopCode, ...params);
+
+        if (!routes) {
+            return null;
+        }
+
         const lines = groupBy(routes, 'LineCode');
 
-        return map(lines, l => {
+        const mappedLines = map(lines, l => {
             const [first] = l;
-            const { RouteCode, ...otherKeys } = first;
+            const { hidden, RouteCode, RouteDescr, RouteDescrEng, RouteDistance, RouteType, ...otherKeys } = first;
+            if (hidden) {
+                return null;
+            }
 
             return {
                 ...otherKeys,
                 RouteCodes: l.map(r => r.RouteCode)
             }
         });
+
+        // This could be expressed as: return mappedLines.filter(l => l);
+        // but typescript types don't behave well on this statement. So we have to do it ourselves...
+        const filteredMappedLines: ILineOfStop[] = [];
+
+        for (const l of mappedLines) {
+            if (l) {
+                filteredMappedLines.push(l)
+            }
+        }
+
+        return filteredMappedLines;
     }
 
     /**

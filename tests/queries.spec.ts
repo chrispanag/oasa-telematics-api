@@ -46,4 +46,9 @@ describe('APIHelpers', () => {
             })
         })
     });
+
+    describe('getLinesOfStop', () => {
+        it('If the stop doesn\' exist then it returns "null"', () => {});
+        it('If the line has multiple routes that pass through that stop, then all those routes are added to the "RouteCodes" key of the line', () => {});
+    });
 });

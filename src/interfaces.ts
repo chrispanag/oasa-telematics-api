@@ -108,6 +108,15 @@ export interface IDirection {
     RouteCodes: string[];
 }
 
+export interface ILineOfStop {
+    RouteCodes: string[];
+    LineCode: string;
+    LineID: string;
+    LineDescr: string;
+    LineDescrEng: string;
+    MasterLineCode: string;
+}
+
 export interface ILineWithMLInfo {
     ml_code: string;
     sdc_code: string;
