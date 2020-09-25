@@ -38,7 +38,7 @@ export interface IRouteDetail {
 export interface IRouteOfStop {
     RouteCode: string;
     LineCode: string;
-    hidden: string;
+    hidden: '0' | '1';
     RouteDescr: string;
     RouteDescrEng: string;
     RouteType: string;
