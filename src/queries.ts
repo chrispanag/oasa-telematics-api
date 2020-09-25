@@ -53,7 +53,7 @@ export class APIHelpers {
         const mappedLines = map(lines, l => {
             const [first] = l;
             const { hidden, RouteCode, RouteDescr, RouteDescrEng, RouteDistance, RouteType, ...otherKeys } = first;
-            if (hidden) {
+            if (hidden !== "0") {
                 return null;
             }
 
