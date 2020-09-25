@@ -3,6 +3,7 @@ import { APIHelpers, RequestFunction } from '../src';
 
 import webGetLinesDummy from './dummyData/webGetLines';
 import webGetLinesWithMLInfoDummy from './dummyData/webGetLinesWithMLInfo';
+import { webGetRoutesDummyCircle, webGetRoutesDummyMultiple, webGetRoutesDummyNormal } from './dummyData/webGetRoutes';
 import webRoutesForStopDummy from './dummyData/webRoutesForStop';
 
 const requestFunction: RequestFunction = <T>(url: string, query: string) => {
@@ -16,6 +17,15 @@ const requestFunction: RequestFunction = <T>(url: string, query: string) => {
         case 'webRoutesForStop&p1=60030':
             // @ts-ignore
             return Promise.resolve(webRoutesForStopDummy as T);
+        case 'webGetRoutes&p1=938':
+            // @ts-ignore
+            return Promise.resolve(webGetRoutesDummyMultiple as T);
+        case 'webGetRoutes&p1=993':
+            // @ts-ignore
+            return Promise.resolve(webGetRoutesDummyNormal as T);
+        case 'webGetRoutes&p1=1151':
+            // @ts-ignore
+            return Promise.resolve(webGetRoutesDummyCircle as T);
         default:
             return Promise.resolve(null);
     }
@@ -68,4 +78,57 @@ describe('APIHelpers', () => {
             });
         })
     });
+
+    describe('getDirectionsOfLine', () => {
+        describe('Line is a circle', () => {
+            it('Returns two directions', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('1151');
+                expect(directions.directions).to.be.of.length(2)
+            })
+            it('Returns isCycle true', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('1151');
+                expect(directions.isCycle).to.be.true;
+            })
+            it('Includes one RouteCode in each direction', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('1151');
+                for (const d of directions.directions) {
+                    expect(d.RouteCodes).to.be.of.length(1);
+                }
+            });
+        });
+        describe('Line has two routes', () => {
+            it('Returns two directions', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('993');
+                expect(directions.directions).to.be.of.length(2)
+            });
+            it('Returns isCycle false', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('993');
+                expect(directions.isCycle).to.be.false;
+            });
+            it('Includes one RouteCode in each direction', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('1151');
+                for (const d of directions.directions) {
+                    expect(d.RouteCodes).to.be.of.length(1);
+                }
+            });
+        });
+        describe('Line has more than two routes', () => {
+            it('Returns two directions', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('938');
+                expect(directions.directions).to.be.of.length(2)
+            });
+            it('Returns isCycle false', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('938');
+                expect(directions.isCycle).to.be.false;
+            });
+            it('Has two RouteCodes on the direction that corresponds to the RouteType that has more than one entry.', async () => {
+                const directions = await apiHelpers.getDirectionsOfLine('938');
+                const ds = directions.directions;
+                const d1 = ds.find(d => d.direction === '1');
+                expect(d1.RouteCodes).to.be.of.length(2);
+                const d2 = ds.find(d => d.direction === '2');
+                expect(d2.RouteCodes).to.be.of.length(1);
+            });
+        });
+    })
 });

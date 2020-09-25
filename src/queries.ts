@@ -78,6 +78,7 @@ export class APIHelpers {
 
     /**
      * Fetches the directions of a line ({@link IDirection})
+     * Uses the {@link webGetRoutes} API call.
      * @param lineCode 
      * @param params - Params to pass at the underlying requestFunction 
      */
