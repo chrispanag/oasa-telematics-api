@@ -23,13 +23,13 @@
         "public-transport"
     ],
     "scripts": {
-        "build": "npx tsc",
-        "test": "ts-mocha  tests/**/*.spec.ts",
-        "gen:docs": "npx typedoc --mode library --out docs --exclude src/tests* --name \"OASA Telematics API\" --includeVersion src/index.ts",
+        "build": "yarn tsc",
+        "test": "yarn ts-mocha tests/**/*.spec.ts",
+        "gen:docs": "yarn typedoc --out docs --includeVersion src/index.ts",
         "prepublish": "yarn run build",
-        "prettier:base": "npx prettier --config ../../.prettierrc",
-        "prettier:check": "yarn run prettier:base -- --list-different \"src/**/*.{ts}\"",
-        "prettier:write": "yarn run prettier:base -- --write \"src/**/*.{ts}\""
+        "prettier:base": "yarn prettier --config .prettierrc",
+        "prettier:check": "yarn run prettier:base --list-different 'src/**/*.ts'",
+        "prettier:write": "yarn run prettier:base --write 'src/**/*.ts'"
     },
     "devDependencies": {
         "@types/chai": "^4.2.14",

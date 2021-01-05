@@ -25,21 +25,25 @@ export class APIHelpers {
      * @param params - Params to pass at the underlying requestFunction
      */
     async findLine(lineID: string, withML?: false, ...params: any[]): Promise<ILine | undefined>;
-    async findLine(lineID: string, withML: true, ...params: any[]): Promise<ILineWithMLInfo | undefined>;
+    async findLine(
+        lineID: string,
+        withML: true,
+        ...params: any[]
+    ): Promise<ILineWithMLInfo | undefined>;
     async findLine(lineID: string, withML: boolean = false, ...params: any[]) {
         if (withML) {
             const lines = await this.api.webGetLinesWithMLInfo(...params);
-            return lines.find(l => l.line_id === lineID);
+            return lines.find((l) => l.line_id === lineID);
         }
 
         const lines = await this.api.webGetLines(...params);
-        return lines.find(l => l.LineID === lineID);
+        return lines.find((l) => l.LineID === lineID);
     }
 
     /**
      * Fetches the different lines passing through a stop
-     * @param stopCode 
-     * @param params - Params to pass at the underlying requestFunction 
+     * @param stopCode
+     * @param params - Params to pass at the underlying requestFunction
      */
     async getLinesOfStop(stopCode: string, ...params: any[]): Promise<ILineOfStop[] | null> {
         const routes = await this.api.webRoutesForStop(stopCode, ...params);
@@ -50,17 +54,25 @@ export class APIHelpers {
 
         const lines = groupBy(routes, 'LineCode');
 
-        const mappedLines = map(lines, l => {
+        const mappedLines = map(lines, (l) => {
             const [first] = l;
-            const { hidden, RouteCode, RouteDescr, RouteDescrEng, RouteDistance, RouteType, ...otherKeys } = first;
-            if (hidden !== "0") {
+            const {
+                hidden,
+                RouteCode,
+                RouteDescr,
+                RouteDescrEng,
+                RouteDistance,
+                RouteType,
+                ...otherKeys
+            } = first;
+            if (hidden !== '0') {
                 return null;
             }
 
             return {
                 ...otherKeys,
-                RouteCodes: l.map(r => r.RouteCode)
-            }
+                RouteCodes: l.map((r) => r.RouteCode)
+            };
         });
 
         // This could be expressed as: return mappedLines.filter(l => l);
@@ -69,7 +81,7 @@ export class APIHelpers {
 
         for (const l of mappedLines) {
             if (l) {
-                filteredMappedLines.push(l)
+                filteredMappedLines.push(l);
             }
         }
 
@@ -79,8 +91,8 @@ export class APIHelpers {
     /**
      * Fetches the directions of a line ({@link IDirection})
      * Uses the {@link webGetRoutes} API call.
-     * @param lineCode 
-     * @param params - Params to pass at the underlying requestFunction 
+     * @param lineCode
+     * @param params - Params to pass at the underlying requestFunction
      */
     async getDirectionsOfLine(lineCode: string, ...params: any[]) {
         const routes = await this.api.webGetRoutes(lineCode, ...params);
@@ -88,11 +100,11 @@ export class APIHelpers {
             throw new Error(`DataError: Line: with LineCode ${lineCode}, has no routes!`);
         }
 
-        const filteredRoutes = routes.filter(r => r.RouteType);
+        const filteredRoutes = routes.filter((r) => r.RouteType);
 
         const directions = groupBy(filteredRoutes, 'RouteType');
         const dirs = map(directions, (dir, key) => {
-            const RouteCodes = dir.map(alt => alt.RouteCode);
+            const RouteCodes = dir.map((alt) => alt.RouteCode);
 
             const [first] = dir;
 
@@ -113,17 +125,17 @@ export class APIHelpers {
      * Performs a fuzzy search to find the closest stop names (StopDescr) on multiple routes.
      * @param stopName - The name of the stop
      * @param routeCodes - The various routeCodes to search for a specific stop
-     * @param params - Params to pass at the underlying requestFunction 
+     * @param params - Params to pass at the underlying requestFunction
      */
     async findStop(stopName: string, routeCodes: string[], ...params: any[]) {
-        const promises = routeCodes.map(r => this.api.webGetStops(r, ...params));
-        const stops = (await Promise.all(promises)).filter(s => s);
+        const promises = routeCodes.map((r) => this.api.webGetStops(r, ...params));
+        const stops = (await Promise.all(promises)).filter((s) => s);
 
-        const foundStops = stops.map(routeStops => {
+        const foundStops = stops.map((routeStops) => {
             if (!routeStops) {
                 return [];
             }
-            const stop = routeStops.find(s => s.StopDescr === stopName);
+            const stop = routeStops.find((s) => s.StopDescr === stopName);
             if (stop) {
                 return [stop];
             }
@@ -135,7 +147,7 @@ export class APIHelpers {
                 return [];
             }
 
-            return suggestions(suggested).map(s => ({
+            return suggestions(suggested).map((s) => ({
                 ...s.item,
                 score: s.score
             }));
@@ -148,14 +160,18 @@ export class APIHelpers {
             }));
         }
 
-        const stopsWithRoute = flatten(foundStops.map((stops, i) => stops.map(s => ({
-            ...s,
-            route: routeCodes[i]
-        }))));
+        const stopsWithRoute = flatten(
+            foundStops.map((stops, i) =>
+                stops.map((s) => ({
+                    ...s,
+                    route: routeCodes[i]
+                }))
+            )
+        );
 
-        const filteredStops = stopsWithRoute.map(stop => {
-            const same = stopsWithRoute.filter(s => s.StopCode === stop.StopCode);
-            const sameRoutes = same.map(s => s.route);
+        const filteredStops = stopsWithRoute.map((stop) => {
+            const same = stopsWithRoute.filter((s) => s.StopCode === stop.StopCode);
+            const sameRoutes = same.map((s) => s.route);
             const { route, ...rest } = stop;
             return {
                 ...rest,
@@ -174,7 +190,7 @@ function suggestions(stops: Fuse.FuseResult<IStop>[]) {
     const [first] = resultStops;
     if (stops.length > 1 && first?.score !== undefined) {
         if (first.score < 0.4) {
-            resultStops = stops.filter(s => s.score ? s.score < 0.4 : false);
+            resultStops = stops.filter((s) => (s.score ? s.score < 0.4 : false));
         }
     }
 
@@ -203,7 +219,7 @@ function titleSanitize(title: string) {
 
 function cycleProcessing(directions: IDirection[]) {
     if (directions.length === 1) {
-        const [dir] = directions
+        const [dir] = directions;
         return {
             isCycle: true,
             directions: [
@@ -215,9 +231,8 @@ function cycleProcessing(directions: IDirection[]) {
                     direction: '2'
                 }
             ]
-        }
+        };
     }
 
     return { isCycle: false, directions };
 }
-

@@ -3,17 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>OASA Telematics API - v0.1.0</title>
-	<meta name="description" content="">
+	<title>OASA - v0.2.2</title>
+	<meta name="description" content="Documentation for OASA - v0.2.2">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -22,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">OASA Telematics API - v0.1.0</a>
+					<a href="index.html" class="title">OASA - v0.2.2</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -51,12 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
-			<h1>OASA Telematics API - v0.1.0</h1>
+			<h1>Project OASA - v0.2.2</h1>
 		</div>
 	</div>
 </header>
@@ -67,59 +61,62 @@
 				<a href="#oasa-telematics-api" id="oasa-telematics-api" style="color: inherit; text-decoration: none;">
 					<h1>OASA Telematics API</h1>
 				</a>
+				<p><a href="https://www.npmjs.com/package/oasa-telematics-api"><img src="https://img.shields.io/npm/v/oasa-telematics-api" alt="npm"></a> <a href="https://www.npmjs.com/package/oasa-telematics-api"><img src="https://img.shields.io/npm/dw/oasa-telematics-api" alt="npm"></a> <img src="https://img.shields.io/github/workflow/status/chrispanag/oasa-telematics-api/Node%20CI" alt="GitHub Workflow Status"></p>
 				<p>The (unofficial) Telematics API of Athens&#39; public buses, complete with types and helper methods 🚌🚌🚌</p>
 				<p>This is the package that powers the popular greek messenger bot &quot;<a href="https://m.me/athensbus">Πότε έρχεται το λεωφορείο μου 🚌</a>&quot;. </p>
 				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
 					<h2>Getting Started</h2>
 				</a>
 				<p>Install the package: <code>$ npm i oasa-telematics-api</code></p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> { APIRequests, APIHelpers } <span class="hljs-keyword">from</span> <span class="hljs-string">'oasa-telematics-api'</span>;
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">APIRequests</span><span style="color: #000000">, </span><span style="color: #001080">APIHelpers</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;oasa-telematics-api&#039;</span><span style="color: #000000">;</span>
 
-<span class="hljs-keyword">const</span> api = <span class="hljs-keyword">new</span> APIRequests();
-<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> APIHelpers();
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">api</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">APIRequests</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">b</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">APIHelpers</span><span style="color: #000000">();</span>
 
-<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; {
-    <span class="hljs-comment">// You can fetch all the lines:</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-params">"You can fetch all the lines..."</span>);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-params"><span class="hljs-keyword">await</span> api.webGetLines(<span class="hljs-params"></span>)</span>);
+<span style="color: #000000">(</span><span style="color: #0000FF">async</span><span style="color: #000000"> () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// You can fetch all the lines:</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;You can fetch all the lines...&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">api</span><span style="color: #000000">.</span><span style="color: #795E26">webGetLines</span><span style="color: #000000">());</span>
 
-    <span class="hljs-comment">// You can fetch a single line:</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-params">"You can fetch a single line..."</span>);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-params"><span class="hljs-keyword">await</span> b.findLine(<span class="hljs-params">'140'</span>)</span>);
+<span style="color: #000000">    </span><span style="color: #008000">// You can fetch a single line:</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;You can fetch a single line...&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">findLine</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;140&#039;</span><span style="color: #000000">));</span>
 
-    <span class="hljs-comment">// You can fetch a stop of a line:</span>
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-params">"You can fetch a stop of a line..."</span>);
-    <span class="hljs-keyword">const</span> line = <span class="hljs-keyword">await</span> b.findLine(<span class="hljs-params">'140'</span>);
-    <span class="hljs-keyword">if</span> (<span class="hljs-params">line</span>) {
-        <span class="hljs-keyword">const</span> { directions } = <span class="hljs-keyword">await</span> b.getDirectionsOfLine(<span class="hljs-params">line.LineCode</span>)
-        <span class="hljs-keyword">const</span> [come, go ] = directions;
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-params"><span class="hljs-keyword">await</span> b.findStop(<span class="hljs-params">'LAMIAS', come.RouteCodes</span>)</span>);
+<span style="color: #000000">    </span><span style="color: #008000">// You can fetch a stop of a line:</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;You can fetch a stop of a line...&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">line</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">findLine</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;140&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">line</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">directions</span><span style="color: #000000"> } = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">getDirectionsOfLine</span><span style="color: #000000">(</span><span style="color: #001080">line</span><span style="color: #000000">.</span><span style="color: #001080">LineCode</span><span style="color: #000000">)</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">const</span><span style="color: #000000"> [</span><span style="color: #0070C1">come</span><span style="color: #000000">, </span><span style="color: #0070C1">go</span><span style="color: #000000"> ] = </span><span style="color: #001080">directions</span><span style="color: #000000">;</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">findStop</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;LAMIAS&#039;</span><span style="color: #000000">, </span><span style="color: #001080">come</span><span style="color: #000000">.</span><span style="color: #001080">RouteCodes</span><span style="color: #000000">));</span>
 
-        <span class="hljs-comment">// Or in greek</span>
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-params">"Or by searching <span class="hljs-keyword">in</span> Greek..."</span>);
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-params"><span class="hljs-keyword">await</span> b.findStop(<span class="hljs-params">'ΛΑΜΙΑΣ', come.RouteCodes</span>)</span>);
+<span style="color: #000000">        </span><span style="color: #008000">// Or in greek</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Or by searching in Greek...&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">findStop</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ΛΑΜΙΑΣ&#039;</span><span style="color: #000000">, </span><span style="color: #001080">come</span><span style="color: #000000">.</span><span style="color: #001080">RouteCodes</span><span style="color: #000000">));</span>
 
-        <span class="hljs-comment">// Or by searching with a typo</span>
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-params">"Or by searching <span class="hljs-keyword">with</span> a typo..."</span>);
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-params"><span class="hljs-keyword">await</span> b.findStop(<span class="hljs-params">'ΛΑΜΙΑ', come.RouteCodes</span>)</span>);
+<span style="color: #000000">        </span><span style="color: #008000">// Or by searching with a typo</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Or by searching with a typo...&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">findStop</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ΛΑΜΙΑ&#039;</span><span style="color: #000000">, </span><span style="color: #001080">come</span><span style="color: #000000">.</span><span style="color: #001080">RouteCodes</span><span style="color: #000000">));</span>
 
-        <span class="hljs-comment">// And then you can check which buses are passing through that stop:</span>
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-params">"And then you can check which buses are passing through that stop..."</span>);
-        <span class="hljs-keyword">const</span> stops = <span class="hljs-keyword">await</span> b.findStop(<span class="hljs-params">'ΛΑΜΙΑ', come.RouteCodes</span>);
-        <span class="hljs-keyword">if</span> (<span class="hljs-params">stops.length &gt; 0</span>) {
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-params"><span class="hljs-keyword">await</span> api.getStopArrivals(<span class="hljs-params">stops[0].StopCode</span>)</span>);
-        }
-    }
-}</span>)<span class="hljs-params">()</span>;</span></code></pre>
+<span style="color: #000000">        </span><span style="color: #008000">// And then you can check which buses are passing through that stop:</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;And then you can check which buses are passing through that stop...&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">stops</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">b</span><span style="color: #000000">.</span><span style="color: #795E26">findStop</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ΛΑΜΙΑ&#039;</span><span style="color: #000000">, </span><span style="color: #001080">come</span><span style="color: #000000">.</span><span style="color: #001080">RouteCodes</span><span style="color: #000000">);</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">stops</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000"> &gt; </span><span style="color: #098658">0</span><span style="color: #000000">) {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">api</span><span style="color: #000000">.</span><span style="color: #795E26">getStopArrivals</span><span style="color: #000000">(</span><span style="color: #001080">stops</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">].</span><span style="color: #001080">StopCode</span><span style="color: #000000">));</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">})();</span>
+</code></pre>
 				<p>You can explore more by visiting the (mostly auto-generated) docs here: </p>
 				<p><a href="https://chrispanag.github.io/oasa-telematics-api/">https://chrispanag.github.io/oasa-telematics-api/</a></p>
 				<p>Also, feel free to open an issue if you want to ask or suggest anything :)</p>
 				<a href="#can-i-use-my-own-request-method" id="can-i-use-my-own-request-method" style="color: inherit; text-decoration: none;">
 					<h3>Can I use my own request method?</h3>
 				</a>
-				<p>Yes. The constructors APIRequests and APIHelpers can get a request function as an argument. </p>
+				<p>Yes. The constructors <code>APIRequests</code> and <code>APIHelpers</code> can get a request function as an argument. </p>
 				<p>The request function will need to have the form: </p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> RequestFunction = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">url: <span class="hljs-built_in">string</span>, query: <span class="hljs-built_in">string</span>, ...params: <span class="hljs-built_in">any</span>[]</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;T&gt;;</code></pre>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">type</span><span style="color: #000000"> </span><span style="color: #267F99">RequestFunction</span><span style="color: #000000"> = &lt;</span><span style="color: #267F99">T</span><span style="color: #000000">&gt;(</span><span style="color: #001080">url</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, </span><span style="color: #001080">query</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">, ...</span><span style="color: #001080">params</span><span style="color: #000000">: </span><span style="color: #267F99">any</span><span style="color: #000000">[]) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">&lt;</span><span style="color: #267F99">T</span><span style="color: #000000">&gt;;</span>
+</code></pre>
 				<p>You can see a reference request function <a href="src/requestFunction.ts">here</a>. </p>
 				<a href="#why-would-i-want-to-use-my-own-request-method" id="why-would-i-want-to-use-my-own-request-method" style="color: inherit; text-decoration: none;">
 					<h3>Why would I want to use my own request method?</h3>
@@ -142,8 +139,8 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
 					</li>
 				</ul>
 			</nav>
@@ -166,6 +163,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iline.html" class="tsd-kind-icon">ILine</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ilineofstop.html" class="tsd-kind-icon">ILine<wbr>OfStop</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ilinewithmlinfo.html" class="tsd-kind-icon">ILine<wbr>WithMLInfo</a>
@@ -195,7 +195,7 @@
 						<a href="interfaces/istop.html" class="tsd-kind-icon">IStop</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#requestfunction" class="tsd-kind-icon">Request<wbr>Function</a>
+						<a href="modules.html#requestfunction" class="tsd-kind-icon">Request<wbr>Function</a>
 					</li>
 				</ul>
 			</nav>
@@ -207,57 +207,14 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
@@ -267,6 +224,5 @@
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

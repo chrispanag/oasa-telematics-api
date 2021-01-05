@@ -1,4 +1,4 @@
-import { RequestFunction } from "./oasa-requests";
+import { RequestFunction } from './oasa-requests';
 import fetch from 'node-fetch';
 
 const defaultRequest: RequestFunction = async <T>(url: string, query: string) => {
@@ -10,6 +10,6 @@ const defaultRequest: RequestFunction = async <T>(url: string, query: string) =>
     } catch (err) {
         throw err;
     }
-}
+};
 
 export default defaultRequest;

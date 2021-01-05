@@ -72,7 +72,7 @@ export interface IScheduleDay {
     sdc_descr: string;
     sdc_descr_eng: string;
     sdc_code: string;
-    "": string;
+    '': string;
 }
 
 export interface IScheduleEntry {
