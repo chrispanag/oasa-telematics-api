@@ -2,3 +2,4 @@ node_modules
 build.info
 build
 yarn-error.log
+.DS_Store
