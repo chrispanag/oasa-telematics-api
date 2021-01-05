@@ -129,7 +129,7 @@ export class APIHelpers {
             }
 
             const fuse = new Fuse(routeStops, fuseOptions);
-            const suggested = fuse.search(stopName);
+            const suggested = fuse.search<IStop>(stopName);
 
             if (suggested.length < 1) {
                 return [];
